@@ -1,0 +1,34 @@
+spin_manifest_version = "1"
+authors = ["Jason Washburn <jason.washburn@gmail.com>"]
+description = "A collection of WASM components to facilitate easier use of weather data from AWS Open Data."
+name = "spinwx"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "spinwx"
+source = "app.wasm"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "spin py2wasm app -o app.wasm"
+
+[[component]]
+id = "gfs-latest-available"
+source = "gfs-latest-available/app.wasm"
+allowed_http_hosts = ["https://noaa-gfs-bdp-pds.s3.amazonaws.com"]
+
+[component.trigger]
+route = "/gfs/latest"
+[component.build]
+command = "spin py2wasm app -o app.wasm"
+workdir = "gfs-latest-available"
+
+[[component]]
+id = "gfs-idx"
+source = "gfs-idx/app.wasm"
+[component.trigger]
+route = "/gfs/idx/..."
+[component.build]
+command = "spin py2wasm app -o app.wasm"
+workdir = "gfs-idx"
