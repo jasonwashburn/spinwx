@@ -15,20 +15,21 @@ command = "spin py2wasm app -o app.wasm"
 
 [[component]]
 id = "gfs-latest-available"
-source = "gfs-latest-available/app.wasm"
-allowed_http_hosts = ["https://noaa-gfs-bdp-pds.s3.amazonaws.com"]
+source = "gfs-latest-available/gfs_latest.wasm"
+allowed_http_hosts = ["http://127.0.0.1:3000","https://noaa-gfs-bdp-pds.s3.amazonaws.com"]
 
 [component.trigger]
 route = "/gfs/latest"
 [component.build]
-command = "spin py2wasm app -o app.wasm"
+command = "spin py2wasm gfs_latest -o gfs_latest.wasm"
 workdir = "gfs-latest-available"
 
 [[component]]
 id = "gfs-idx"
-source = "gfs-idx/app.wasm"
+source = "gfs-idx/gfs_idx.wasm"
+allowed_http_hosts = ["http://127.0.0.1:3000", "https://noaa-gfs-bdp-pds.s3.amazonaws.com"]
 [component.trigger]
 route = "/gfs/idx/..."
 [component.build]
-command = "spin py2wasm app -o app.wasm"
+command = "spin py2wasm gfs_idx -o gfs_idx.wasm"
 workdir = "gfs-idx"

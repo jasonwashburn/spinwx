@@ -50,6 +50,16 @@ cov = [
   "test-cov",
   "cov-report",
 ]
+spin-idx-sync = "(cd gfs-idx && pipenv sync)"
+spin-latest-sync = "(cd gfs-latest-available && pipenv sync)"
+spin-sync = [
+  "spin-idx-sync",
+  "spin-latest-sync",
+]
+spin-reload = [
+  "spin-sync",
+  "spin build && spin up"
+]
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.10","3.11"]
@@ -89,6 +99,7 @@ target-version = "py310"
 select = ["ALL"]
 ignore = []
 unfixable = []
+line-length = 100
 
 [tool.ruff.pydocstyle]
 convention = "google"

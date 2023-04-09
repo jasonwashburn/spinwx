@@ -12,7 +12,7 @@ S3_BUCKET = "noaa-gfs-bdp-pds"
 logging.basicConfig(
     format="%(levelname)s: %(asctime)s %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",
-    level=logging.INFO,
+    level=logging.DEBUG,
 )
 
 
@@ -85,6 +85,41 @@ def build_s3_grib_file_prefix(model_run: datetime) -> str:
     day = model_run.day
     hour = model_run.hour
     return f"gfs.{year}{month:02}{day:02}/{hour:02}/atmos/gfs.t{hour:02}z.pgrb2.0p25"
+
+
+def build_idx_key_from_model_and_forecast(model_run: datetime, forecast: int) -> str:
+    """Build the S3 key for the index file for the given model run and forecast.
+
+    Example idx S3 key:
+        gfs.20230409/06/atmos/gfs.t06z.pgrb2.0p25.f001
+
+    Args:
+        model_run (datetime): The model run time.
+        forecast (int): The forecast hour.
+
+    Returns:
+        str: The S3 key.
+    """
+    prefix = build_s3_grib_file_prefix(model_run=model_run)
+    return f"{prefix}.f{forecast:03}.idx"
+
+
+def build_idx_file_url(model_run: datetime, forecast: int) -> str:
+    """Build the S3 list objects URL for the given model run.
+
+    Example idx file URL:
+        https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20230409/06/atmos/gfs.t06z.pgrb2.0p25.f001
+
+    Args:
+        model_run (datetime): The model run time.
+        forecast (int): The forecast hour.
+
+    Returns:
+        str: The S3 list objects URL.
+    """
+    idx_key = f"{build_idx_key_from_model_and_forecast(model_run=model_run, forecast=forecast)}"
+
+    return f"https://{S3_BUCKET}.s3.amazonaws.com/{idx_key}"
 
 
 def build_url(model_run: datetime) -> str:
