@@ -16,7 +16,7 @@ command = "spin py2wasm app -o app.wasm"
 [[component]]
 id = "gfs-latest-available"
 source = "gfs-latest-available/gfs_latest.wasm"
-allowed_http_hosts = ["http://127.0.0.1:3000","https://noaa-gfs-bdp-pds.s3.amazonaws.com"]
+allowed_http_hosts = ["insecure:allow-all"]
 
 [component.trigger]
 route = "/gfs/latest"
@@ -27,7 +27,8 @@ workdir = "gfs-latest-available"
 [[component]]
 id = "gfs-idx"
 source = "gfs-idx/gfs_idx.wasm"
-allowed_http_hosts = ["http://127.0.0.1:3000", "https://noaa-gfs-bdp-pds.s3.amazonaws.com"]
+allowed_http_hosts = ["insecure:allow-all"]
+
 [component.trigger]
 route = "/gfs/idx/..."
 [component.build]

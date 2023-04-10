@@ -9,12 +9,6 @@ MODEL_HOUR_INTERVAL = 6
 NUM_EXPECTED_FORECASTS = 209
 S3_BUCKET = "noaa-gfs-bdp-pds"
 
-logging.basicConfig(
-    format="%(levelname)s: %(asctime)s %(message)s",
-    datefmt="%m/%d/%Y %I:%M:%S %p",
-    level=logging.DEBUG,
-)
-
 
 def get_forecast_keys_from_s3_list_objects_resp(model_run: datetime) -> set[str]:
     """Get the forecast keys from the S3 list objects response.
