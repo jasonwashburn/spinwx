@@ -29,14 +29,19 @@ def handle_request(request: Request) -> Response:
         request.uri,
         request.headers[0][1],
     )
-
     logging.debug("Environment: %s", os.environ)
     header_dict = parse_spin_headers(request.headers)
     logging.debug("headers: %s", header_dict)
-    latest_run = get_latest_complete_run()
-    response = json.dumps(
-        {
-            "latest_run": latest_run.isoformat(),
-        },
-    )
+    if latest_run := get_latest_complete_run():
+        response = json.dumps(
+            {
+                "latest_run": latest_run.isoformat(),
+            },
+        )
+    else:
+        response = json.dumps(
+            {
+                "latest_run": None,
+            },
+        )
     return Response(200, [("content-type", "text/plain")], bytes(response, "utf-8"))
