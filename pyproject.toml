@@ -64,6 +64,24 @@ spin-reload = [
 [[tool.hatch.envs.all.matrix]]
 python = ["3.10","3.11"]
 
+[tool.hatch.envs.deploy]
+detached = true
+dependencies = []
+
+[tool.hatch.envs.deploy.scripts]
+spin-idx-sync = "(cd gfs-idx && pipenv sync)"
+spin-latest-sync = "(cd gfs-latest-available && pipenv sync)"
+spin-sync = [
+  "spin-idx-sync",
+  "spin-latest-sync",
+]
+all = [
+  "(cd gfs-idx && pipenv sync)",
+  "(cd gfs-latest-available && pipenv sync)",
+  "spin build",
+  "spin deploy"
+]
+
 [tool.hatch.envs.lint]
 detached = true
 dependencies = [
