@@ -5,13 +5,13 @@ name = "spinwx"
 trigger = { type = "http", base = "/" }
 version = "0.1.0"
 
-[[component]]
-id = "spinwx"
-source = "app.wasm"
-[component.trigger]
-route = "/..."
-[component.build]
-command = "spin py2wasm app -o app.wasm"
+# [[component]]
+# id = "spinwx"
+# source = "app.wasm"
+# [component.trigger]
+# route = "/..."
+# [component.build]
+# command = "spin py2wasm app -o app.wasm"
 
 [[component]]
 id = "gfs-latest-available"
