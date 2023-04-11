@@ -40,7 +40,7 @@ def get_query_params_from_header_dict(headers: dict) -> dict:
     """
     full_url = headers.get("spin-full-url")
     component_route = headers.get("spin-component-route")
-    if full_url and component_route:
+    if full_url and component_route and "?" in full_url:
         query_string = full_url.split(component_route)[1].split("?")[1]
         query_params = {}
         for pair in query_string.split("&"):
