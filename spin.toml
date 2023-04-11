@@ -34,3 +34,14 @@ route = "/gfs/idx/..."
 [component.build]
 command = "spin py2wasm gfs_idx -o gfs_idx.wasm"
 workdir = "gfs-idx"
+
+[[component]]
+id = "gfs-grib"
+source = "gfs-grib/gfs_grib.wasm"
+allowed_http_hosts = ["insecure:allow-all"]
+
+[component.trigger]
+route = "/gfs/grib/..."
+[component.build]
+command = "spin py2wasm gfs_grib -o gfs_grib.wasm"
+workdir = "gfs-grib"

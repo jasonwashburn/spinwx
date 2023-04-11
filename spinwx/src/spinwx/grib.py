@@ -20,9 +20,9 @@ def parse_idx(idx: str) -> dict:
         dict: The parsed idx file as a dict.
     """
     idx_dict: defaultdict[str, defaultdict] = defaultdict(lambda: defaultdict(dict))
-    prev_start_byte = None
+    prev_start_byte = 0
     for line in reversed(idx.splitlines()):
         _, start_byte, _, param, level, _ = line.rstrip(":").split(":")
-        idx_dict[level][param]["byte_range"] = (int(start_byte), prev_start_byte)
+        idx_dict[level][param]["byte_range"] = (int(start_byte), prev_start_byte - 1)
         prev_start_byte = int(start_byte)
     return idx_dict

@@ -115,6 +115,7 @@ ban-relative-imports = "all"
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
 "gfs-idx/**/*" = ["INP001"]
 "gfs-latest-available/**/*" = ["INP001"]
+"gfs-grib/**/*" = ["INP001"]
 
 
 [tool.coverage.run]
